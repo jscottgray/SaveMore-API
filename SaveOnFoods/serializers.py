@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from SaveOnFoods.models import Product
+from SaveOnFoods.models import Product, Price
 
 # Serializers can be used to *both* serialize and deserialize data
 
@@ -7,4 +7,10 @@ from SaveOnFoods.models import Product
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ["SKU", "name", "price"]
+        fields = ["sku", "name", "description", "size", "department"]
+
+
+class PriceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Price
+        fields = ["sku", "price", "multibuy", "sales_description"]
