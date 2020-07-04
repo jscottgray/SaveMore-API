@@ -38,8 +38,15 @@ def product_details(request, sku):
 @csrf_exempt
 @require_GET
 def price_history(request, sku):
-    # TODO: implement this function, need to convert a QuerySet to JSON list of price objects?
-    pass
+    prices = Price.objects.filter(sku=sku)
+    i = 0
+    price_data = {}
+    for price in prices:
+        price_serializer = PriceSerializer(price)
+        price_data[i] = price_serializer.data
+        i += 1
+    json_data = json.dumps(price_data)
+    return JSONResponse(json_data)
 
 
 @csrf_exempt
